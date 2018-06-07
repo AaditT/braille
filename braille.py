@@ -78,7 +78,7 @@ z = [[1,0],[0,1],[1,1]]
 letterToImgPath = {
     "a": "braille/images/a.png",
     "b": "braille/images/b.png",
-    "c:" "braille/images/c.png",
+    "c": "braille/images/c.png",
     "d": "braille/images/d.png",
     "e": "braille/images/e.png",
     "f": "braille/images/f.png",
