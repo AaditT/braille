@@ -3,7 +3,6 @@
 # -*- coding: utf8 -*-
 
 # Written by Aadit Trivedi
-# June 6, 2018
 # Braille Library
 
 # # Dependencies
