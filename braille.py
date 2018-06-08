@@ -7,14 +7,20 @@
 # Braille Library
 
 # # Dependencies
-# 1) pip3 install SpeechRecognition
-# 2) pip3 install numpy
+# 1) sudo apt-get install pyaudio
+# 3) sudo apt-get install espeak 
+# 2) pip3 install SpeechRecognition
+# 3) pip3 install numpy
+# 4) pip3 install pillow
+# 5) sudo apt-get install pytesseract
 
 # Upload to GitHub
 
-
 import speech_recognition as sr
 import numpy as np
+import os
+from PIL import Image
+from pytesseract import image_to_string
 
 wit_api_key = 'MRC3OPBK2T366ILOXGCSOCXOFAVA7CXH'
 
@@ -46,97 +52,67 @@ global x
 global y
 global z
 
-void = [[0,0],[0,0],[0,0]]
-a = [[1,0],[0,0],[0,0]]
-b = [[1,0],[1,0],[0,0]]
-c = [[1,1],[0,0],[0,0]]
-d = [[1,1],[0,1],[0,0]]
-e = [[1,0],[0,1],[1,0]]
-f = [[1,1],[1,0],[0,0]]
-g = [[1,1],[1,1],[0,0]]
-h = [[1,0],[1,1],[0,0]]
-i = [[0,1],[1,0],[1,0]]
-j = [[0,1],[1,1],[0,0]]
-k = [[1,0],[0,0],[1,0]]
-l = [[1,0],[1,0],[1,0]]
-m = [[1,1],[0,0],[1,0]]
-n = [[1,1],[0,1],[1,0]]
-o = [[1,0],[0,1],[1,1]]
-p = [[1,1],[1,0],[1,0]]
-q = [[1,1],[1,1],[1,0]]
-r = [[1,0],[1,1],[1,0]]
-s = [[0,1],[1,0],[1,0]]
-t = [[0,1],[1,1],[1,0]]
-u = [[1,0],[0,0],[1,1]]
-v = [[1,0],[1,0],[1,1]]
-w = [[0,1],[0,1],[1,1]]
-x = [[1,1],[0,0],[1,1]]
-y = [[1,1],[0,1],[1,1]]
-z = [[1,0],[0,1],[1,1]]
-
-# Update dictionary based on GitHub file path skeleton
-letterToImgPath = {
-    "a": "braille/images/a.png",
-    "b": "braille/images/b.png",
-    "c": "braille/images/c.png",
-    "d": "braille/images/d.png",
-    "e": "braille/images/e.png",
-    "f": "braille/images/f.png",
-    "g": "braille/images/g.png",
-    "h": "braille/images/h.png",
-    "i": "braille/images/ipng",
-    "j": "braille/images/j.png",
-    "k": "braille/images/k.png",
-    "l": "braille/images/l.png",
-    "m": "braille/images/m.png",
-    "n": "braille/images/n.png",
-    "o": "braille/images/o.png",
-    "p": "braille/images/p.png",
-    "q": "braille/images/q.png",
-    "r": "braille/images/r.png",
-    "s": "braille/images/s.png",
-    "t": "braille/images/t.png",
-    "u": "braille/images/u.png",
-    "v": "braille/images/v.png",
-    "w": "braille/images/w.png",
-    "x": "braille/images/x.png",
-    "y": "braille/images/y.png",
-    "z": "braille/images/z.png",
-    "void": "braille/images/void.png",
+charToArray = {
+    " " : [[0,0],[0,0],[0,0]],
+    "a" : [[1,0],[0,0],[0,0]],
+    "b" : [[1,0],[1,0],[0,0]],
+    "c" : [[1,1],[0,0],[0,0]],
+    "d" : [[1,1],[0,1],[0,0]],
+    "e" : [[1,0],[0,1],[1,0]],
+    "f" : [[1,1],[1,0],[0,0]],
+    "g" : [[1,1],[1,1],[0,0]],
+    "h" : [[1,0],[1,1],[0,0]],
+    "i" : [[0,1],[1,0],[1,0]],
+    "j" : [[0,1],[1,1],[0,0]],
+    "k" : [[1,0],[0,0],[1,0]],
+    "l" : [[1,0],[1,0],[1,0]],
+    "m" : [[1,1],[0,0],[1,0]],
+    "n" : [[1,1],[0,1],[1,0]],
+    "o" : [[1,0],[0,1],[1,1]],
+    "p" : [[1,1],[1,0],[1,0]],
+    "q" : [[1,1],[1,1],[1,0]],
+    "r" : [[1,0],[1,1],[1,0]],
+    "s" : [[0,1],[1,0],[1,0]],
+    "t" : [[0,1],[1,1],[1,0]],
+    "u" : [[1,0],[0,0],[1,1]],
+    "v" : [[1,0],[1,0],[1,1]],
+    "w" : [[0,1],[0,1],[1,1]],
+    "x" : [[1,1],[0,0],[1,1]],
+    "y" : [[1,1],[0,1],[1,1]],
+    "z" : [[1,0],[0,1],[1,1]]
 }
 
-def textToBraille(c_string):
-    for char in c_string:
-        char = char.lower()
-        if char == "a": print(a)
-        elif char == "b": print(b)
-        elif char == "c": print(c)
-        elif char == "d": print(d)
-        elif char == "e": print(e)
-        elif char == "f": print(f)
-        elif char == "g": print(g)
-        elif char == "h": print(h)
-        elif char == "i": print(i)
-        elif char == "j": print(j)
-        elif char == "k": print(k)
-        elif char == "l": print(l)
-        elif char == "m": print(m)
-        elif char == "n": print(n)
-        elif char == "o": print(o)
-        elif char == "p": print(p)
-        elif char == "q": print(q)
-        elif char == "r": print(r)
-        elif char == "s": print(s)
-        elif char == "t": print(t)
-        elif char == "u": print(u)
-        elif char == "v": print(v)
-        elif char == "w": print(w)
-        elif char == "x": print(x)
-        elif char == "y": print(y)
-        elif char == "z": print(z)
-        elif char == " ": print(void)
+letterToImgPath = {
+    "a": "/Users/aadittrivedi/Desktop/braille/a.png",
+    "b": "/Users/aadittrivedi/Desktop/braille/b.png",
+    "c": "/Users/aadittrivedi/Desktop/braille/c.png",
+    "d": "/Users/aadittrivedi/Desktop/braille/d.png",
+    "e": "/Users/aadittrivedi/Desktop/braille/e.png",
+    "f": "/Users/aadittrivedi/Desktop/braille/f.png",
+    "g": "/Users/aadittrivedi/Desktop/braille/g.png",
+    "h": "/Users/aadittrivedi/Desktop/braille/h.png",
+    "i": "/Users/aadittrivedi/Desktop/braille/i.png",
+    "j": "/Users/aadittrivedi/Desktop/braille/j.png",
+    "k": "/Users/aadittrivedi/Desktop/braille/k.png",
+    "l": "/Users/aadittrivedi/Desktop/braille/l.png",
+    "m": "/Users/aadittrivedi/Desktop/braille/m.png",
+    "n": "/Users/aadittrivedi/Desktop/braille/n.png",
+    "o": "/Users/aadittrivedi/Desktop/braille/o.png",
+    "p": "/Users/aadittrivedi/Desktop/braille/p.png",
+    "q": "/Users/aadittrivedi/Desktop/braille/q.png",
+    "r": "/Users/aadittrivedi/Desktop/braille/r.png",
+    "s": "/Users/aadittrivedi/Desktop/braille/s.png",
+    "t": "/Users/aadittrivedi/Desktop/braille/t.png",
+    "u": "/Users/aadittrivedi/Desktop/braille/u.png",
+    "v": "/Users/aadittrivedi/Desktop/braille/v.png",
+    "w": "/Users/aadittrivedi/Desktop/braille/w.png",
+    "x": "/Users/aadittrivedi/Desktop/braille/x.png",
+    "y": "/Users/aadittrivedi/Desktop/braille/y.png",
+    "z": "/Users/aadittrivedi/Desktop/braille/z.png",
+    " ": "/Users/aadittrivedi/Desktop/braille/void.png",
+}
 
-def detectWhileSpeaking():
+def speechToText():
     rec = sr.Recognizer()
     mic = sr.Microphone()
     with mic as source:
@@ -145,4 +121,64 @@ def detectWhileSpeaking():
         return(str(rec.recognize_wit(audio, wit_api_key)))
 
 def speechToBraille():
-    textToBraille(detectWhileSpeaking())
+    textToBraille(speechToText())
+
+def textToSpeech(text):
+    os.system("espeak '" + str(text) + "'")
+
+def textToBraille(text):
+    for char in text:
+        char = char.lower()
+        if char == "a": print(charToArray["a"])
+        elif char == "b": print(charToArray["b"])
+        elif char == "c": print(charToArray["c"])
+        elif char == "d": print(charToArray["d"])
+        elif char == "e": print(charToArray["e"])
+        elif char == "f": print(charToArray["f"])
+        elif char == "g": print(charToArray["g"])
+        elif char == "h": print(charToArray["h"])
+        elif char == "i": print(charToArray["i"])
+        elif char == "j": print(charToArray["j"])
+        elif char == "k": print(charToArray["k"])
+        elif char == "l": print(charToArray["l"])
+        elif char == "m": print(charToArray["m"])
+        elif char == "n": print(charToArray["n"])
+        elif char == "o": print(charToArray["o"])
+        elif char == "p": print(charToArray["p"])
+        elif char == "q": print(charToArray["q"])
+        elif char == "r": print(charToArray["r"])
+        elif char == "s": print(charToArray["s"])
+        elif char == "t": print(charToArray["t"])
+        elif char == "u": print(charToArray["u"])
+        elif char == "v": print(charToArray["v"])
+        elif char == "w": print(charToArray["w"])
+        elif char == "x": print(charToArray["x"])
+        elif char == "y": print(charToArray["y"])
+        elif char == "z": print(charToArray["z"])
+        elif char == " ": print(charToArray[" "])
+
+def brailleToText(array):
+    new_chars = ''
+    for key in array:
+        for a_key in charToArray:
+            if charToArray[a_key] == key:
+                new_chars = new_chars + str(a_key)
+    return new_chars
+            
+def brailleToSpeechArray(array):
+    textToSpeech(brailleToText(array))
+
+def brailleToSpeechImg(imgs):
+    for img in imgs:
+        for chars in letterToImgPath:
+            if img == letterToImgPath[chars]:
+                print(chars)
+
+def imageToText(img):
+    return image_to_string(Image.open('test.png'))
+
+def imageToSpeech(img):
+    textToSpeech(imageToText(img))
+
+def imageToBraille(img):
+    textToBraille(imageToText(img))
