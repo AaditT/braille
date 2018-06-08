@@ -21,7 +21,7 @@ import os
 from PIL import Image
 from pytesseract import image_to_string
 
-wit_api_key = 'MRC3OPBK2T366ILOXGCSOCXOFAVA7CXH'
+wit_api_key = '' # enter your API key from wit.ai
 
 global void
 global a
