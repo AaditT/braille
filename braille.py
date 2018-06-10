@@ -3,6 +3,7 @@
 # -*- coding: utf8 -*-
 
 # Written by Aadit Trivedi
+# June 6, 2018
 # Braille Library
 
 # # Dependencies
@@ -12,6 +13,9 @@
 # 3) pip3 install numpy
 # 4) pip3 install pillow
 # 5) sudo apt-get install pytesseract
+# 6) sudo apt-get install opencv-python
+# 7) pip3 install opencv
+# 8) pip3 install matplotlib
 
 # Upload to GitHub
 
@@ -20,8 +24,10 @@ import numpy as np
 import os
 from PIL import Image
 from pytesseract import image_to_string
+import matplotlib.pyplot as plt
+import PIL
 
-wit_api_key = '' # enter your API key from wit.ai
+wit_api_key = 'MRC3OPBK2T366ILOXGCSOCXOFAVA7CXH'
 
 global void
 global a
@@ -111,6 +117,36 @@ letterToImgPath = {
     " ": "/Users/aadittrivedi/Desktop/braille/void.png",
 }
 
+
+ 
+ 
+def concat_images(imga, imgb):
+    ha,wa = imga.shape[:2]
+    hb,wb = imgb.shape[:2]
+    max_height = np.max([ha, hb])
+    total_width = wa+wb
+    new_img = np.zeros(shape=(max_height, total_width, 3))
+    new_img[:ha,:wa]=imga
+    new_img[:hb,wa:wa+wb]=imgb
+    return new_img
+
+def addImages(list_im):
+    imgs = [ PIL.Image.open(i) for i in list_im ]
+    min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
+    imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+    imgs_comb = PIL.Image.fromarray( imgs_comb)
+    imgs_comb.save('output.jpg')  
+ 
+def createImage(b_string):
+    images = []
+    for letter in b_string:
+        images.append(letterToImgPath[letter])
+    addImages(images)
+    img = Image.open('output.jpg')
+    img.show()
+
+createImage("aadit")
+
 def speechToText():
     rec = sr.Recognizer()
     mic = sr.Microphone()
@@ -174,7 +210,7 @@ def brailleToSpeechImg(imgs):
                 print(chars)
 
 def imageToText(img):
-    return image_to_string(Image.open('test.png'))
+    return image_to_string(Image.open(img))
 
 def imageToSpeech(img):
     textToSpeech(imageToText(img))
