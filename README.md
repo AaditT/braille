@@ -1,4 +1,6 @@
 ## braille
+First place [![N|Solid](winner)](https://nodesource.com/products/nsolid) at HarkerHacks 2018
+
 A Python module that supports conversion between text, image, speech, and braille for developers.
 
 #### Inspiration
