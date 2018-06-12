@@ -22,7 +22,7 @@ With this library, developers can simply install and import this library and per
 5) To convert image to braille: `braille.imageToBraille('image_path')`
 6) To convert a braille array to text: `braille.brailleToTextArray('array')`
 7) To convert a braille array to speech: `braille.brailleToSpeechImg('list_of_imgs_paths')`
-8) To convert braille images (from [here](https://github.com/AaditT/braille/tree/master/images "here")): `braille.brailleToSpeechImgs(images)`
+8) To convert braille images (from [here](https://github.com/AaditT/braille/tree/master/images "here")): `braille.brailleToSpeechImgs('list_of_imgs_paths')`
 9) To convert speech to text: `braille.speechToText()`
 10) To convert speech to braille: `braille.speechToBraille()`
 
