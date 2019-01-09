@@ -10,6 +10,11 @@ In the world, 36 million people are blind, and I wanted to create a project that
 ### What it does
 With this library, developers can simply install and import this library and perform conversions between text, image, speech, and braille.
 
+### Installation 🛠
+  Make a project directory ``$ mkdir YOUR_PROJECT_DIRECTORY``
+  Install the library from GitHub ``git clone https://www.github.com/AaditT/braille``
+  Make sure you work within this directory. Your importation of the braille library may not work if this installation occurs in any other folder
+
 ### Using Braille
 1) Download braille.py to a directory and create your project within this directory
 2) `import braille`
