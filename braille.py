@@ -27,7 +27,7 @@ from pytesseract import image_to_string
 import matplotlib.pyplot as plt
 import PIL
 
-wit_api_key = 'MRC3OPBK2T366ILOXGCSOCXOFAVA7CXH'
+from creds import wit_api_key
 
 global void
 global a
