@@ -27,7 +27,6 @@ from pytesseract import image_to_string
 import matplotlib.pyplot as plt
 import PIL
 
-from creds import wit_api_key
 
 global void
 global a
@@ -156,14 +155,6 @@ def writeText(b_string):
         final_string = final_string + ascii_braille[letters.lower()]
     print(final_string)
 
-def speechToText():
-    rec = sr.Recognizer()
-    mic = sr.Microphone()
-    with mic as source:
-        rec.adjust_for_ambient_noise(source)
-        audio = rec.listen(source)
-        return(str(rec.recognize_wit(audio, wit_api_key)))
-
 def textToBraille(text):
     final_string = ''
     for char in text:
@@ -251,8 +242,7 @@ def textToBraille(text):
             print(char + " " + str(charToArray[" "]))
     print(final_string)
 
-def speechToBraille():
-    textToBraille(speechToText())
+
 
 def textToSpeech(text):
     os.system("espeak '" + str(text) + "'")
@@ -282,5 +272,3 @@ def imageToSpeech(img):
 
 def imageToBraille(img):
     textToBraille(imageToText(img))
-#new file
-#new file

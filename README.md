@@ -15,7 +15,7 @@ With this library, developers can simply install and import this library and per
   Install the library from GitHub ``git clone https://www.github.com/AaditT/braille``
   Make sure you work within this directory. Your importation of the braille library may not work if this installation occurs in any other folder
 
-### Using Braille
+### braille Documentation
 1) Download braille.py to a directory and create your project within this directory
 2) `import braille`
 
@@ -29,8 +29,3 @@ With this library, developers can simply install and import this library and per
 8) To convert braille images (from [here](https://github.com/AaditT/braille/tree/master/images "here")): `braille.brailleToSpeechImgs('list_of_imgs_paths')`
 9) To convert speech to text: `braille.speechToText()`
 10) To convert speech to braille: `braille.speechToBraille()`
-
-### What I learned
-Through the process of making this project, I learned a lot about creating a library in Python. Specifically, I used built-in libaries, arrays, and dictionaries that helped me create my own library.
-
-# ThirdEye - project code can be found in /ThirdEye/ directory

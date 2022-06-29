@@ -1,3 +1,7 @@
+# June 28, 2022
+# This is an example file showcasing a potential application of the braille model
+# Below code uses the opencv module to take a photo and convert any text from the photo to braille
+
 import braille
 import cv2
 
